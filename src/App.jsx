@@ -1,17 +1,13 @@
-import React, { useState } from "react";
 import Router from "./shared/Router";
-import GlobalStyle from "./components/GlobalStyle";
-// import { ItemProvider } from "./contexts/ItemContext";
+import GlobalStyle from "./style/GlobalStyle";
 
 const App = () => {
   return (
     <>
-      {/* <ItemProvider> */}
       <div>
         <GlobalStyle />
         <Router />
       </div>
-      {/* </ItemProvider> */}
     </>
   );
 };

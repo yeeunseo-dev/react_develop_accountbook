@@ -2,8 +2,8 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
-  ${reset}
-  /* 추가적인 전역 스타일을 여기에 작성할 수 있습니다 */
+  ${reset};
+  
   @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Pretendard-Regular', sans-serif;
     background-color: #f0f0f0;
     display: flex;
-  justify-content: center;
+    justify-content: center;
   }
 
 .wrapper {
@@ -53,47 +53,6 @@ const GlobalStyle = createGlobalStyle`
   text-decoration: none;
   }
 
-// 셀렉트박스 스타일
-
-/* common */
-/* 
-.hide{
-    display: none;
-}
-.show{
-    display: block;
-} */
-
-/* 셀렉트 영역 스타일 */
-/* .select{
-    position: relative;
-    height: 40px;
-    padding: 5px 10px;
-    width: 200px;
-    border-radius: 4px;
-    border:none;
-    cursor: pointer;
-
-    &:hover {
-    border: 2px solid #01BFA7;
-    outline: none };
-} */
-
-/* 옵션 영역 스타일 */
-/* .select ul{
-    position: absolute;
-    top: 30px;
-    left: 0;
-    width: 100%;
-    border:1px solid salmon;
-    border-radius: 4px;
-    background-color: #525252;
-    cursor: pointer;
-}
-.select ul li{
-    padding: 10px;
-} */
-
   .button {
     font-size: 14px;
     height: 40px;
@@ -118,7 +77,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #999999;
   }
 
-  .month-button {
+  .month-button, .grey-button {
     font-family: 'Pretendard-Regular';
     height: 40px;
     font-size: 14px;
@@ -182,6 +141,20 @@ const GlobalStyle = createGlobalStyle`
     font-size: 14px;
     margin-left: 16px;
     margin-bottom: 8px;
+  }
+
+  .tag-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 240px;
+    margin: 0 auto;
+    }
+    
+  .tag-label {
+    color: #999999;
+    font-size: 14px;
+    padding-left: 8px;
   }
 
 `;
