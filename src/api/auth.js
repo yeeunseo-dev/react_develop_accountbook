@@ -15,7 +15,7 @@ export const register = async ({ id, password, nickname }) => {
 
 export const login = async ({ id, password }) => {
   try {
-    const response = await authApi.post("/login?expiresIn=10m", {
+    const response = await authApi.post("/login?expiresIn=20m", {
       id,
       password,
     });

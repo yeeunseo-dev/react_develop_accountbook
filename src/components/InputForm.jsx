@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../redux/slices/itemSlice";
+import { useQuery, useMutation, QueryClient } from "@tanstack/react-query";
+import { getExpenses, postExpense } from "../api/expense";
+import { useNavigate } from "react-router-dom";
 
 //입력 폼
 const InputForm = () => {
@@ -9,6 +12,26 @@ const InputForm = () => {
   const [category, setCategory] = useState("");
   const [expense, setExpense] = useState("");
   const [detail, setDetail] = useState("");
+  const queryClient = new QueryClient();
+  const navigate = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: postExpense,
+    onSuccess: () => {
+      queryClient: invalidateQueries(["expenses"]);
+      navigate(0);
+    },
+  });
+
+  const {
+    data: expenses = [],
+    isLoading,
+    error,
+  } = useQuery({ queryKey: ["expense"], queryFn: getExpenses });
+
+  if (isLoading) {
+    return <div>로딩 중입니다.</div>;
+  }
 
   const dateHandler = (e) => {
     setDate(e.target.value);
@@ -45,6 +68,8 @@ const InputForm = () => {
       setDetail("");
     }
   };
+
+  mutation.mutate(newExpense);
 
   return (
     <>
