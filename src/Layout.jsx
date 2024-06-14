@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getUserInfo } from "../api/auth";
 import { useEffect } from "react";
+import { getUserInfo } from "./api/auth";
 
 const Navbar = styled.div`
   background-color: #222222;
@@ -80,13 +80,13 @@ export default function Layout({ user, setUser }) {
           avatar: res.avatar,
         });
       } else {
+        console.log(res);
         handleLogout();
       }
     });
   }, []);
 
   const handleLogout = () => {
-    // setIsLogin(false);
     setUser(null);
     navigate("/login");
     localStorage.clear();

@@ -1,5 +1,5 @@
 import Router from "./shared/Router";
-import GlobalStyle from "./style/GlobalStyle";
+import GlobalStyle from "../src/components/GlobalStyle";
 
 const App = () => {
   return (

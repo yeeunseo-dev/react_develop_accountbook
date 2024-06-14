@@ -1,5 +1,4 @@
-import axios from "axios";
-import { jsonApi } from "./axios";
+import { jsonApi } from "./auth";
 
 export const getExpenses = async () => {
   try {

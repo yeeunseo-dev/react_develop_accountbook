@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getExpenses } from "../api/expense";
 
 const MonthSelector = () => {
   const items = useSelector((state) => state.items);
   const location = useLocation();
   // const navigate = useNavigate();
+
+  const {
+    data: expenses = [],
+    isPending,
+    error,
+  } = useQuery({ queryKey: ["expenses"], queryFn: getExpenses });
 
   const initialMonth =
     location.state?.selectedMonth ||
@@ -18,10 +25,6 @@ const MonthSelector = () => {
   useEffect(() => {
     localStorage.setItem("selectedMonth", selectedMonth);
   }, [selectedMonth]);
-
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
 
   const months = [
     "1월",
@@ -44,6 +47,10 @@ const MonthSelector = () => {
     const itemMonth = parseInt(item.date.substring(5, 7), 10) - 1;
     return months[itemMonth] === selectedMonth;
   });
+
+  if (isPending) {
+    return <div>로딩 중입니다.</div>;
+  }
 
   return (
     <>
