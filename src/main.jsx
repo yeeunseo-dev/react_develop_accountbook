@@ -7,10 +7,10 @@ import QueryClientSetup from "./QueryClientSetup.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <QueryClientSetup>
+    <QueryClientSetup>
+      <Provider store={store}>
         <App />
-      </QueryClientSetup>
-    </Provider>
+      </Provider>
+    </QueryClientSetup>
   </React.StrictMode>
 );

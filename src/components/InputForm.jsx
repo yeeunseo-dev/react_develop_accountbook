@@ -45,14 +45,6 @@ const InputForm = () => {
     if (!date || !category || !expense || !detail) {
       alert("전체를 입력해주세요");
     } else {
-      const newItem = {
-        date,
-        category,
-        expense: parseInt(expense),
-        detail,
-      };
-      dispatch(addItem(newItem));
-
       const newExpense = {
         date,
         category,
@@ -60,6 +52,13 @@ const InputForm = () => {
         expense: parseInt(expense),
       };
       mutation.mutate(newExpense);
+      // const newItem = {
+      //   date,
+      //   category,
+      //   expense: parseInt(expense),
+      //   detail,
+      // };
+      // dispatch(addItem(newItem));
 
       setDate("");
       setCategory("");

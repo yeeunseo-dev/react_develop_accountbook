@@ -42,10 +42,10 @@ const MonthSelector = () => {
   ];
 
   // 월별 선택
-  const filteredItems = items.filter((item) => {
+  const filteredExpenses = expenses.filter((expense) => {
     if (!selectedMonth || selectedMonth === "전체") return true;
-    const itemMonth = parseInt(item.date.substring(5, 7), 10) - 1;
-    return months[itemMonth] === selectedMonth;
+    const expenseMonth = parseInt(expense.date.substring(5, 7), 10) - 1;
+    return months[expenseMonth] === selectedMonth;
   });
 
   if (isPending) {
@@ -84,14 +84,14 @@ const MonthSelector = () => {
       </div>
 
       <ul>
-        {filteredItems.map((item) => (
-          <Link className="list" key={item.id} to={`/detail/${item.id}`}>
-            <div className="label">{item.date}</div>
+        {filteredExpenses.map((expense) => (
+          <Link className="list" key={expense.id} to={`/detail/${expense.id}`}>
+            <div className="label">{expense.date}</div>
             <div className="main-text">
-              <div className="label">{item.category}</div> {item.detail}
+              <div className="label">{expense.category}</div> {expense.detail}
             </div>
             <div>
-              <span className="highlight-text">{item.expense}</span>
+              <span className="highlight-text">{expense.expense}</span>
               <span className="label">원</span>
             </div>
           </Link>
