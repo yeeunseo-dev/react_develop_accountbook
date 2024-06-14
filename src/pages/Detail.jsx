@@ -9,13 +9,13 @@ const Detail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  // const items = useSelector((state) => state.items);
+  const items = useSelector((state) => state.items);
 
   const {
     data: selectedExpense,
     isLoading,
     error,
-  } = useQuery({ queryKey: ["expense", id], queryFn: getExpense });
+  } = useQuery({ queryKey: ["expenses", id], queryFn: getExpense });
 
   console.log(selectedExpense);
 
@@ -70,7 +70,7 @@ const Detail = () => {
       date: date,
       category: category,
       detail: detail,
-      expense: parseInt(amount, 10),
+      expense: parseInt(expense),
     };
     mutationEdit.mutate(newExpense);
 

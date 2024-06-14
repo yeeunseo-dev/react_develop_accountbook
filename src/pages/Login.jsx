@@ -79,7 +79,7 @@ const Login = ({ setUser }) => {
     event.preventDefault();
     if (isLoginMode) {
       try {
-        const { data } = await authApi.post("/login?expiresIn=10m", {
+        const { data } = await authApi.post("/login?expiresIn=20m", {
           id,
           password,
         });
@@ -92,8 +92,8 @@ const Login = ({ setUser }) => {
           alert("로그인 성공");
           localStorage.setItem("accessToken", accessToken);
           setIsLogin(true);
-          setUser({ userId, nickname, avatar });
           navigate("/");
+          setUser({ userId, nickname, avatar });
         }
       } catch (err) {
         alert(err?.response?.data?.message);

@@ -8,8 +8,7 @@ export const authApi = axios.create({
 });
 
 export const jsonApi = axios.create({
-  baseURL: "https://aboard-spark-calliandra.glitch.me",
-  timeout: 1, // 1ms
+  baseURL: "https://prickle-instinctive-stone.glitch.me",
 });
 
 // authApi.interceptors.request.use(

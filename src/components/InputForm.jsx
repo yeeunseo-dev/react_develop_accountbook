@@ -18,7 +18,7 @@ const InputForm = () => {
   const mutation = useMutation({
     mutationFn: postExpense,
     onSuccess: () => {
-      queryClient: invalidateQueries(["expenses"]);
+      queryClient.invalidateQueries(["expense"]);
       navigate(0);
     },
   });
@@ -27,7 +27,7 @@ const InputForm = () => {
     data: expenses = [],
     isLoading,
     error,
-  } = useQuery({ queryKey: ["expense"], queryFn: getExpenses });
+  } = useQuery({ queryKey: ["expenses"], queryFn: getExpenses });
 
   if (isLoading) {
     return <div>로딩 중입니다.</div>;
@@ -62,14 +62,20 @@ const InputForm = () => {
       };
       dispatch(addItem(newItem));
 
+      const newExpense = {
+        date,
+        category,
+        detail,
+        expense: parseInt(expense),
+      };
+      mutation.mutate(newExpense);
+
       setDate("");
       setCategory("");
       setExpense("");
       setDetail("");
     }
   };
-
-  mutation.mutate(newExpense);
 
   return (
     <>
