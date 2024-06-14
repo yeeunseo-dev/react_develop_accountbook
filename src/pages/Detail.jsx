@@ -12,12 +12,10 @@ const Detail = () => {
   const queryClient = useQueryClient();
 
   const {
-    data: expense,
+    data: selectedExpense,
     isPending,
     error,
   } = useQuery({ queryKey: ["expenses", id], queryFn: () => getExpense(id) });
-
-  // console.log(selectedExpense);
 
   const dateRef = useRef(null);
   const categoryRef = useRef(null);
@@ -25,16 +23,16 @@ const Detail = () => {
   const expenseRef = useRef(null);
 
   useEffect(() => {
-    if (expense) {
-      dateRef.current.value = expense.date;
-      categoryRef.current.value = expense.category;
-      detailRef.current.value = expense.detail;
-      expenseRef.current.value = expense.expense;
+    if (selectedExpense) {
+      dateRef.current.value = selectedExpense.date;
+      categoryRef.current.value = selectedExpense.category;
+      detailRef.current.value = selectedExpense.detail;
+      expenseRef.current.value = selectedExpense.expense;
     }
-  }, [expense]);
+  }, [selectedExpense]);
 
   const mutationEdit = useMutation({
-    mutationFn: (updatedExpense) => putExpense(id, updatedExpense),
+    mutationFn: (updatedExpense) => putExpense({ id, ...updatedExpense }),
     onSuccess: () => {
       navigate("/");
       queryClient.invalidateQueries(["expenses"]);
@@ -50,14 +48,15 @@ const Detail = () => {
   });
 
   const handleUpdate = () => {
-    const updatedExpense = {
+    const selectedExpense = {
       date: dateRef.current.value,
       category: categoryRef.current.value,
       detail: detailRef.current.value,
       expense: parseInt(expenseRef.current.value),
     };
-    mutationEdit.mutate(updatedExpense);
+    mutationEdit.mutate(selectedExpense);
   };
+
   // const item = items.find((item) => item.id === id);
 
   // if (!item) {
@@ -89,14 +88,13 @@ const Detail = () => {
 
   const handleDelete = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      // (deleteItem(expense.id));
-      // navigate("/");
-      mutationDelete.mutate();
+      navigate("/");
+      mutationDelete.mutate(selectedExpense.id);
     }
   };
 
   const handleBack = () => {
-    const selectedMonth = item.date.substring(5, 7) + "월";
+    const selectedMonth = selectedExpense.date.substring(5, 7) + "월";
     navigate(-1, { replace: true, state: { selectedMonth } });
   };
 
@@ -118,7 +116,7 @@ const Detail = () => {
           <input
             className="input"
             type="text"
-            // defaultValue={expense.date}
+            defaultValue={selectedExpense?.date}
             ref={dateRef}
           />
         </div>
@@ -127,7 +125,7 @@ const Detail = () => {
           <input
             className="input"
             type="text"
-            // defaultValue={expense.category}
+            defaultValue={selectedExpense?.category}
             ref={categoryRef}
           />
         </div>
@@ -136,7 +134,7 @@ const Detail = () => {
           <input
             className="input"
             type="text"
-            // defaultValue={expense.detail}
+            defaultValue={selectedExpense?.detail}
             ref={detailRef}
           />
         </div>
@@ -145,7 +143,7 @@ const Detail = () => {
           <input
             className="input"
             type="number"
-            // defaultValue={expense.expense}
+            defaultValue={selectedExpense?.expense}
             ref={expenseRef}
           />
         </div>

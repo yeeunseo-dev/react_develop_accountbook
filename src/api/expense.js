@@ -11,9 +11,9 @@ export const getExpenses = async () => {
   }
 };
 
-export const getExpense = async ({ queryKey }) => {
+export const getExpense = async (id) => {
   try {
-    const response = await jsonApi.get(`/expenses/${queryKey[1]}`);
+    const response = await jsonApi.get(`/expenses/${id}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -35,7 +35,7 @@ export const postExpense = async (newExpense) => {
 export const putExpense = async (updatedExpense) => {
   const { id, ...rest } = updatedExpense;
   try {
-    const { data } = await jsonApi.put("/expenses/${id}", rest);
+    const { data } = await jsonApi.put(`/expenses/${id}`, rest);
     return data;
   } catch (error) {
     alert("뭔가 잘못된 것 같아요! 데이터가 수정되지 않아요!");
@@ -45,7 +45,7 @@ export const putExpense = async (updatedExpense) => {
 
 export const deleteExpense = async (id) => {
   try {
-    const { data } = await jsonApi.delete("/expenses/${id}");
+    const { data } = await jsonApi.delete(`/expenses/${id}`);
     return data;
   } catch (error) {
     console.error(error);

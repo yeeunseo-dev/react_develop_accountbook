@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { updateProfile } from "../api/auth";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   max-width: 400px;
@@ -39,20 +40,25 @@ const Button = styled.button`
 const Profile = ({ user, setUser }) => {
   const [nickname, setNickname] = useState("");
   const [avatar, setAvatar] = useState(null);
+  const navigate = useNavigate();
 
   const handleUpdateProfile = async () => {
-    const formData = new FormData();
-    formData.append("nickname", nickname);
-    formData.append("avatar", avatar);
-    const response = await updateProfile(formData);
+    try {
+      const formData = new FormData();
+      formData.append("nickname", nickname);
+      formData.append("avatar", avatar);
+      const response = await updateProfile(formData);
 
-    if (response.success) {
-      setUser({
-        ...user,
-        nickname: response.nickname,
-        avatar: response.avatar,
-      });
-      navigate("/");
+      if (response.success) {
+        setUser({
+          ...user,
+          nickname: response.nickname,
+          avatar: response.avatar,
+        });
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("프로필 업데이트 실패:", error);
     }
   };
 
